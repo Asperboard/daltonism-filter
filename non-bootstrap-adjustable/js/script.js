@@ -38,18 +38,36 @@ const filters = {
     ]
 };
 
-let currentMatrix = null;
+const identityMatrix = [
+    [1, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0]
+];
+
+let baseMatrix = null;
 
 function applyFilter(filterClass) {
-    document.body.className = ''; // Clear existing classes
+    document.body.className = '';
     if (filterClass !== 'normal') {
         document.getElementById(filter_name_name).innerText = filterClass;
         document.body.classList.add(filterClass);
-        updateFilterIntensity();
+        // updateFilterIntensity();
+        baseMatrix = filters[filterClass];
     } else {
         document.getElementById(filter_name_name).innerText = 'None';
+        currentMatrix = null;
     }
-    updateFilterTransparency();
+    // updateFilterTransparency();
+    updateFilter();
+}
+
+function applyMatrixToFilter(matrix) {
+    const currentFilter = document.getElementById(filter_name_name).innerText;
+    const filterElement = document.querySelector(`#${currentFilter}-filter feColorMatrix`);
+    if (filterElement) {
+        filterElement.setAttribute('values', matrix.flat().join(' '));
+    }
 }
 
 function update_transparency_slider_display_value() {
@@ -60,17 +78,12 @@ function update_transparency_slider_display_value() {
 
 function updateFilterTransparency() {
     update_transparency_slider_display_value();
-    const transparency = document.getElementById(transparencySlider_name).value / 100;
-
-    const currentFilter = document.getElementById(filter_name_name).innerText;
-    if (filters[currentFilter]) {
-        const matrix = filters[currentFilter].map(row =>
+    if (currentMatrix) {
+        const transparency = document.getElementById(transparencySlider_name).value / 100;
+        const transparentMatrix = currentMatrix.map(row =>
             row.map(val => val * transparency)
         );
-        const filterElement = document.querySelector(`#${currentFilter}-filter feColorMatrix`);
-        if (filterElement) {
-            filterElement.setAttribute('values', matrix.flat().join(' '));
-        }
+        applyMatrixToFilter(transparentMatrix);
     }
 }
 
@@ -82,22 +95,18 @@ function update_intensity_slider_display_value() {
 function updateFilterIntensity() {
     update_intensity_slider_display_value();
     const intensity = document.getElementById(intensitySlider_name).value / 100;
-    const identityMatrix = [
-        [1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0]
-    ];
-    const currentFilter = document.getElementById(filter_name_name).innerText;
-    if (filters[currentFilter]) {
-        const matrix = filters[currentFilter].map((row, i) =>
+    if (currentMatrix) {
+        const intenseMatrix = currentMatrix.map((row, i) =>
             row.map((val, j) => val * intensity + identityMatrix[i][j] * (1 - intensity))
         );
-        const filterElement = document.querySelector(`#${currentFilter}-filter feColorMatrix`);
-        if (filterElement) {
-            filterElement.setAttribute('values', matrix.flat().join(' '));
-        }
+        currentMatrix = intenseMatrix;
+        applyMatrixToFilter(intenseMatrix);
     }
+}
+
+function updateFilter() {
+    updateFilterIntensity();
+    updateFilterTransparency();
 }
 
 document.getElementById('normal').addEventListener('click', function () {
@@ -128,5 +137,4 @@ document.addEventListener('DOMContentLoaded', function () {
     applyFilter('normal');
     update_transparency_slider_display_value();
     update_intensity_slider_display_value();
-}
-);
+});
