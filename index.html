@@ -15,14 +15,20 @@
 </head>
 
 <body>
-    <p>If you are not redirected automatically, follow this <a id="redirect" href="./html/">link</a>.</p>
+    <p>If you are not redirected automatically, follow one of these links:</p>
+    <ul>
+        <li><a id="redirect-non-bootstrap" href="./non-bootstrap/">Non-Bootstrap</a></li>
+        <li><a id="redirect-non-bootstrap-adjustable" href="./non-bootstrap-adjustable/">Non-Bootstrap Adjustable</a></li>
+        <li><a id="redirect-html" href="./html/">HTML</a></li>
+    </ul>
     <script type="text/javascript">
-        const url = "/html";
-        document.getElementById("redirect").href = url;
-        function redirect() {
-            window.location.pathname = url;
-        }
-        window.onload = redirect;
+        const hostname = window.location.origin;
+        const urlNonBootstrap = `${hostname}/non-bootstrap`;
+        const urlNonBootstrapAdjustable = `${hostname}/non-bootstrap-adjustable`;
+        const urlHtml = `${hostname}/html`;
+        document.getElementById("redirect-non-bootstrap").href = urlNonBootstrap;
+        document.getElementById("redirect-non-bootstrap-adjustable").href = urlNonBootstrapAdjustable;
+        document.getElementById("redirect-html").href = urlHtml;
     </script>
 </body>
 
