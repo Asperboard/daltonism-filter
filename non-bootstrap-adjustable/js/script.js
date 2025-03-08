@@ -52,13 +52,12 @@ function applyFilter(filterClass) {
     if (filterClass !== 'normal') {
         document.getElementById(filter_name_name).innerText = filterClass;
         document.body.classList.add(filterClass);
-        // updateFilterIntensity();
         baseMatrix = filters[filterClass];
     } else {
         document.getElementById(filter_name_name).innerText = 'None';
-        currentMatrix = null;
+        baseMatrix = identityMatrix;
+        // updateFilterTransparency();
     }
-    // updateFilterTransparency();
     updateFilter();
 }
 
@@ -72,41 +71,64 @@ function applyMatrixToFilter(matrix) {
 
 function update_transparency_slider_display_value() {
     const data = document.getElementById(transparencySlider_name).value;
-    console.log("data = ", data);
+    // console.log("data = ", data);
     document.getElementById(transparencySliderValue_name).innerText = data;
 }
 
 function updateFilterTransparency() {
     update_transparency_slider_display_value();
-    if (currentMatrix) {
-        const transparency = document.getElementById(transparencySlider_name).value / 100;
-        const transparentMatrix = currentMatrix.map(row =>
+    const transparency = document.getElementById(transparencySlider_name).value / 100;
+    if (baseMatrix) {
+        const transparentMatrix = baseMatrix.map(row =>
             row.map(val => val * transparency)
         );
         applyMatrixToFilter(transparentMatrix);
     }
+    // else if (document.body.classList.contains('normal')) {
+    //     const transparentMatrix = identityMatrix.map(row =>
+    //         row.map(val => val * transparency)
+    //     );
+    //     applyMatrixToFilter(transparentMatrix);
+    // }
 }
 
 function update_intensity_slider_display_value() {
     const data = document.getElementById(intensitySlider_name).value;
-    console.log("data = ", data);
+    // console.log("data = ", data);
     document.getElementById(intensitySliderValue_name).innerText = data;
 }
 function updateFilterIntensity() {
     update_intensity_slider_display_value();
     const intensity = document.getElementById(intensitySlider_name).value / 100;
-    if (currentMatrix) {
-        const intenseMatrix = currentMatrix.map((row, i) =>
+    if (baseMatrix) {
+        const intenseMatrix = baseMatrix.map((row, i) =>
             row.map((val, j) => val * intensity + identityMatrix[i][j] * (1 - intensity))
         );
-        currentMatrix = intenseMatrix;
+        baseMatrix = intenseMatrix;
         applyMatrixToFilter(intenseMatrix);
     }
 }
 
+
 function updateFilter() {
-    updateFilterIntensity();
-    updateFilterTransparency();
+    update_transparency_slider_display_value();
+    update_intensity_slider_display_value();
+    const intensity = document.getElementById(intensitySlider_name).value / 100;
+    const transparency = document.getElementById(transparencySlider_name).value / 100;
+
+    let currentMatrix = baseMatrix ? baseMatrix : identityMatrix;
+
+    // Apply intensity adjustment
+    const intenseMatrix = currentMatrix.map((row, i) =>
+        row.map((val, j) => val * intensity + identityMatrix[i][j] * (1 - intensity))
+    );
+
+    // Apply transparency adjustment
+    const finalMatrix = intenseMatrix.map(row =>
+        row.map(val => val * transparency)
+    );
+
+    applyMatrixToFilter(finalMatrix);
 }
 
 document.getElementById('normal').addEventListener('click', function () {
@@ -129,9 +151,9 @@ document.getElementById('monochromacy').addEventListener('click', function () {
     applyFilter('monochromacy');
 });
 
-document.getElementById(transparencySlider_name).addEventListener('input', updateFilterTransparency);
+document.getElementById(transparencySlider_name).addEventListener('input', updateFilter);
 
-document.getElementById(intensitySlider_name).addEventListener('input', updateFilterIntensity);
+document.getElementById(intensitySlider_name).addEventListener('input', updateFilter);
 
 document.addEventListener('DOMContentLoaded', function () {
     applyFilter('normal');
