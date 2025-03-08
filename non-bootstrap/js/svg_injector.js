@@ -23,10 +23,10 @@ async function fetch_svg_file() {
 
 async function inject_svg() {
     const svg_content = await fetch_svg_file();
-    const svg_container = document.createElement('div');
     if (!svg_content) {
         return;
     }
+    const svg_container = document.createElement('div');
     svg_container.innerHTML = svg_content;
     svg_container.classList.add("daltonism-svg");
     document.body.appendChild(svg_container);

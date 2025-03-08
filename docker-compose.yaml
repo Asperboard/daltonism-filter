@@ -17,3 +17,12 @@ services:
     volumes:
       - ./non-bootstrap/:/usr/local/apache2/htdocs/
     container_name: daltonian_ns_website
+  non-bootstrap-daltonian-adjustable:
+    build:
+      context: ./non-bootstrap-adjustable/
+      dockerfile: ../Dockerfile
+    ports:
+      - "8081:80"
+    volumes:
+      - ./non-bootstrap-adjustable/:/usr/local/apache2/htdocs/
+    container_name: daltonian_ns_website_adjustable
