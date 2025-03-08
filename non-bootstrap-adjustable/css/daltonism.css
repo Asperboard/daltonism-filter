@@ -18,7 +18,7 @@
     --daltonism-view-mode-protanopia: url(#protanopia-filter);
     --daltonism-view-mode-tritanopia: url(#tritanopia-filter);
     --daltonism-view-mode-monochromacy: url(#monochromacy-filter);
-    --daltonism-view-mode-normal: none;
+    --daltonism-view-mode-normal: url(#normal-filter);
 }
 
 /* Normal */

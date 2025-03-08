@@ -47,17 +47,28 @@ const identityMatrix = [
 
 let baseMatrix = null;
 
+// function applyFilter(filterClass) {
+//     document.body.className = '';
+//     if (filterClass !== 'normal') {
+//         document.getElementById(filter_name_name).innerText = filterClass;
+//         document.body.classList.add(filterClass);
+//         baseMatrix = filters[filterClass];
+//     } else {
+//         document.getElementById(filter_name_name).innerText = 'None';
+//         baseMatrix = identityMatrix;
+//         // updateFilterTransparency();
+//     }
+//     updateFilter();
+// }
+
 function applyFilter(filterClass) {
     document.body.className = '';
-    if (filterClass !== 'normal') {
-        document.getElementById(filter_name_name).innerText = filterClass;
-        document.body.classList.add(filterClass);
-        baseMatrix = filters[filterClass];
-    } else {
-        document.getElementById(filter_name_name).innerText = 'None';
-        baseMatrix = identityMatrix;
-        // updateFilterTransparency();
-    }
+    document.getElementById(filter_name_name).innerText = filterClass;
+    document.body.classList.add(filterClass);
+    baseMatrix = filters[filterClass];
+    // document.getElementById(filter_name_name).innerText = 'None';
+    // baseMatrix = identityMatrix;
+    // updateFilterTransparency();
     updateFilter();
 }
 
