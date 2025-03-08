@@ -1,0 +1,34 @@
+/*
+** EPITECH PROJECT, 2024
+** daltonism-filter
+** File description:
+** styles.css
+*/
+
+.daltonism-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.normal {
+    filter: none;
+}
+
+.deuteranopia {
+    filter: url(#deuteranopia-filter);
+}
+
+.protanopia {
+    filter: url(#protanopia-filter);
+}
+
+.tritanopia {
+    filter: url(#tritanopia-filter);
+}
+
+/* Monochromacy filter */
+.monochromacy {
+    filter: url(#monochromacy-filter);
+}
