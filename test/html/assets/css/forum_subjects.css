@@ -1,0 +1,37 @@
+/* ** EPITECH PROJECT, 2024
+** mockup
+** File description:
+** forum_subjects.css */
+
+.buttonList {
+  display: inline-flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+  padding-left: 10px;
+  margin: 0;
+  overflow: hidden !important;
+  overflow-y: auto !important;
+}
+
+.buttonList li {
+  margin-bottom: 10px;
+}
+
+.buttonList button {
+  border: none;
+  background: transparent;
+  padding: 2px 2px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* Style the button when it is active */
+
+.buttonList button.active, .buttonList li.active {
+  background-color: steelblue;
+  color: white;
+  border-radius: 0px;
+}
+

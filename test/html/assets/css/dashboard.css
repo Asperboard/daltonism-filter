@@ -1,0 +1,48 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  background-color: silver;
+  color: black;
+}
+
+.widget_button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.button_desing {
+  padding: 1px 2px;
+  background-color: steelblue;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.button_desing:hover {
+  background-color: steelblue;
+}
+
+#widgets_body {
+  display: flex;
+}
+
+.search_container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 5px;
+}
+
+/* For the sun */
+
+svg.bi.bi-sun-fill.mb-1 {
+  color: black;
+}
+

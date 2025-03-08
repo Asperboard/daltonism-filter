@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <url>
+        <loc>https://asperboard.pingpal.news/html/api/v1/oauth/callback/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/callback/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/feedback/qr/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/feedback/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/games/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/password/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/reset-password/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/routes/pro/creation/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/routes/pro/suivi/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/routes/user/dashboard/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/routes/user/suivi/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/</loc>
+    </url>
+    <url>
+        <loc>https://asperboard.pingpal.news/html/professional.html</loc>
+    </url>
+</urlset>

@@ -1,10 +1,19 @@
 services:
-  frontend:
+  daltonian:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./html/
+      dockerfile: ../Dockerfile
     ports:
       - "80:80"
     volumes:
       - ./html/:/usr/local/apache2/htdocs/
-    container_name: frontend_website
+    container_name: daltonian_website
+  non-bootstrap-daltonian:
+    build:
+      context: ./non-bootstrap/
+      dockerfile: ../Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./non-bootstrap/:/usr/local/apache2/htdocs/
+    container_name: daltonian_ns_website

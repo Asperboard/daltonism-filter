@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/AB-logo.png">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/AB-logo.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/AB-logo.png">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/AB-logo.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/AB-logo.png">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/AB-logo.png">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/AB-logo.png">
+    <title>Color Blindness Filters</title>
+</head>
+
+<body>
+    <button id="normal">Normal</button>
+    <button id="deuteranopia">Deuteranopia</button>
+    <button id="protanopia">Protanopia</button>
+    <button id="tritanopia">Tritanopia</button>
+    <svg style="display: block;">
+        <filter id="deuteranopia-filter">
+            <feColorMatrix type="matrix" values="0.8 0.2 0 0 0
+                                                     0.258 0.742 0 0 0
+                                                     0 0.142 0.858 0 0
+                                                     0 0 0 1 0" />
+        </filter>
+        <filter id="protanopia-filter">
+            <feColorMatrix type="matrix" values="0.567 0.433 0 0 0
+                                                     0.558 0.442 0 0 0
+                                                     0 0.242 0.758 0 0
+                                                     0 0 0 1 0" />
+        </filter>
+        <filter id="tritanopia-filter">
+            <feColorMatrix type="matrix" values="1 0 0 0 0
+                                                     0 0.9 0.1 0 0
+                                                     0 0.5 0.5 0 0
+                                                     0 0 0 1 0" />
+        </filter>
+    </svg>
+    <br>
+    <div>
+        <p>Sample text</p>
+        <iframe src="https://www.youtube.com/embed/9bZkp7q19f0" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

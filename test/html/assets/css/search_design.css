@@ -1,0 +1,51 @@
+/* ** EPITECH PROJECT, 2024
+** mockup
+** File description:
+** search_design.css */
+
+/* Basic styling for the navbar */
+
+.navbar_search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+/* Styling for the search form */
+
+.search-form {
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+/* Styling for the search input */
+
+.search-input {
+  padding: 8px 12px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 16px;
+  width: 200px;
+}
+
+/* Styling for the search button */
+
+.search-button {
+  background-color: transparent;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+/* On hover, change the button's background color */
+
+.search-button:hover {
+  background-color: #555;
+}
+
