@@ -46,6 +46,9 @@ const daltonismProtanopiaButton_name = "protanopia";
 const daltonismTritanopiaButton_name = "tritanopia";
 const daltonismMonochromacyButton_name = "monochromacy";
 
+// Debug mode
+const daltonismDebugLog = false;
+
 
 // ----------------------------- Base functions in charge of simplifying certain processes during the declaration of the constants ------------------------------
 
@@ -104,6 +107,16 @@ function daltonianReturnCorrectColourMatrixFilter(colour) {
     }
 }
 
+// ----------------------------- Debugging functions ------------------------------
+function daltonismLogDebug(...data) {
+    const headerLogger = "[debug daltonism]";
+    if (daltonismDebugLog) {
+        console.debug(headerLogger, ...data);
+    }
+}
+
+console.daltonismDebug = daltonismLogDebug;
+
 // ----------------------------- Constants ------------------------------
 
 
@@ -128,24 +141,24 @@ const daltonismFilters = Object.keys(daltonismClassNameEquivalence).reduce((acc,
     return acc;
 }, {});
 
-console.log("daltonismFilters: ", daltonismFilters);
-console.log("daltonismClassNameEquivalence: ", daltonismClassNameEquivalence);
+console.daltonismDebug("daltonismFilters: ", daltonismFilters);
+console.daltonismDebug("daltonismClassNameEquivalence: ", daltonismClassNameEquivalence);
 
 // svg class related definitions
 const daltonismSVGArrayJoinCharacter = " ";
 
 /* BEGIN DEBUG CHUNK , uncomment to see the values */
-// console.log("normal equivalence", daltonismClassNameEquivalence["normal"]);
-// console.log("deuteranopia equivalence", daltonismClassNameEquivalence["deuteranopia"]);
-// console.log("protanopia equivalence", daltonismClassNameEquivalence["protanopia"]);
-// console.log("tritanopia equivalence", daltonismClassNameEquivalence["tritanopia"]);
-// console.log("monochromacy equivalence", daltonismClassNameEquivalence["monochromacy"]);
+// console.daltonismDebug("normal equivalence", daltonismClassNameEquivalence["normal"]);
+// console.daltonismDebug("deuteranopia equivalence", daltonismClassNameEquivalence["deuteranopia"]);
+// console.daltonismDebug("protanopia equivalence", daltonismClassNameEquivalence["protanopia"]);
+// console.daltonismDebug("tritanopia equivalence", daltonismClassNameEquivalence["tritanopia"]);
+// console.daltonismDebug("monochromacy equivalence", daltonismClassNameEquivalence["monochromacy"]);
 
-// console.log("deuteranopia", daltonismFilters[daltonismClassNameEquivalence["deuteranopia"]]);
-// console.log("protanopia", daltonismFilters[daltonismClassNameEquivalence["protanopia"]]);
-// console.log("tritanopia", daltonismFilters[daltonismClassNameEquivalence["tritanopia"]]);
-// console.log("monochromacy", daltonismFilters[daltonismClassNameEquivalence["monochromacy"]]);
-// console.log("normal", daltonismFilters[daltonismClassNameEquivalence["normal"]]);
+// console.daltonismDebug("deuteranopia", daltonismFilters[daltonismClassNameEquivalence["deuteranopia"]]);
+// console.daltonismDebug("protanopia", daltonismFilters[daltonismClassNameEquivalence["protanopia"]]);
+// console.daltonismDebug("tritanopia", daltonismFilters[daltonismClassNameEquivalence["tritanopia"]]);
+// console.daltonismDebug("monochromacy", daltonismFilters[daltonismClassNameEquivalence["monochromacy"]]);
+// console.daltonismDebug("normal", daltonismFilters[daltonismClassNameEquivalence["normal"]]);
 /* END DEBUG CHUNK */
 
 const daltonismSVGFileContent = `
@@ -231,97 +244,97 @@ let daltonismBaseMatrix = null;
 // ----------------------------- Functions for displaying the slider values ------------------------------
 function daltonismUpdateTransparencySliderDisplayValue() {
     const data = document.getElementById(daltonismTransparencySlider_name).value;
-    console.log("(daltonismUpdateTransparencySliderDisplayValue) value: ", data);
+    console.daltonismDebug("(daltonismUpdateTransparencySliderDisplayValue) value: ", data);
     document.getElementById(daltonismTransparencySliderValue_name).innerText = data;
 }
 
 function daltonismUpdateIntensitySliderDisplayValue() {
     const data = document.getElementById(daltonismIntensitySlider_name).value;
-    console.log("(daltonismUpdateIntensitySliderDisplayValue) value: ", data);
+    console.daltonismDebug("(daltonismUpdateIntensitySliderDisplayValue) value: ", data);
     document.getElementById(daltonismIntensitySliderValue_name).innerText = data;
 }
 
 // ----------------------------- Functions for managing the filters ------------------------------
 function daltonismApplyFilter(filterClass) {
     document.body.className = '';
-    console.log("(daltonismApplyFilter) filterClass: ", filterClass);
+    console.daltonismDebug("(daltonismApplyFilter) filterClass: ", filterClass);
     const currentFilter = daltonismClassNameEquivalence[`${filterClass}`];
-    console.log("(daltonismApplyFilter) currentFilter: ", currentFilter);
+    console.daltonismDebug("(daltonismApplyFilter) currentFilter: ", currentFilter);
     document.getElementById(daltonismFilterName_name).innerText = filterClass;
     document.body.classList.add(`${currentFilter}`);
     const chosenMatrix = daltonismFilters[`${currentFilter}`];
-    console.log("(daltonismApplyFilter) chosenMatrix: ", chosenMatrix);
+    console.daltonismDebug("(daltonismApplyFilter) chosenMatrix: ", chosenMatrix);
     daltonismBaseMatrix = chosenMatrix;
     daltonismUpdateFilter();
 }
 
 function daltonismApplyMatrixToFilter(matrix) {
     const currentFilter = document.getElementById(daltonismFilterName_name).innerText;
-    console.log("(daltonismApplyMatrixToFilter) currentFilter: ", currentFilter);
+    console.daltonismDebug("(daltonismApplyMatrixToFilter) currentFilter: ", currentFilter);
     const currentFilterEquivalent = daltonismClassNameEquivalence[`${currentFilter}`];
-    console.log("(daltonismApplyMatrixToFilter) currentFilterEquivalent: ", currentFilterEquivalent);
+    console.daltonismDebug("(daltonismApplyMatrixToFilter) currentFilterEquivalent: ", currentFilterEquivalent);
     const filterElement = document.querySelector(`#${currentFilterEquivalent}-filter feColorMatrix`);
     if (filterElement) {
-        console.log("(daltonismApplyMatrixToFilter) filterElement: ", filterElement);
-        console.log("(daltonismApplyMatrixToFilter) matrix: ", matrix);
+        console.daltonismDebug("(daltonismApplyMatrixToFilter) filterElement: ", filterElement);
+        console.daltonismDebug("(daltonismApplyMatrixToFilter) matrix: ", matrix);
         filterElement.setAttribute('values', matrix.flat().join(' '));
     }
 }
 
 function daltonismUpdateFilterTransparency() {
     daltonismUpdateTransparencySliderDisplayValue();
-    console.log("(daltonismUpdateFilterTransparency) daltonismUpdateFilterTransparency called");
+    console.daltonismDebug("(daltonismUpdateFilterTransparency) daltonismUpdateFilterTransparency called");
     const transparency = document.getElementById(daltonismTransparencySlider_name).value / 100;
     if (daltonismBaseMatrix) {
-        console.log("(daltonismUpdateFilterTransparency) intensity: ", intensity);
+        console.daltonismDebug("(daltonismUpdateFilterTransparency) intensity: ", intensity);
         const transparentMatrix = daltonismBaseMatrix.map(row =>
             row.map(val => val * transparency)
         );
-        console.log("(daltonismUpdateFilterTransparency) transparentMatrix: ", transparentMatrix);
+        console.daltonismDebug("(daltonismUpdateFilterTransparency) transparentMatrix: ", transparentMatrix);
         daltonismApplyMatrixToFilter(transparentMatrix);
     }
 }
 
 function daltonismUpdateFilterIntensity() {
     daltonismUpdateIntensitySliderDisplayValue();
-    console.log("(daltonismUpdateFilterIntensity) daltonismUpdateFilterIntensity called");
+    console.daltonismDebug("(daltonismUpdateFilterIntensity) daltonismUpdateFilterIntensity called");
     const intensity = document.getElementById(daltonismIntensitySlider_name).value / 100;
     if (daltonismBaseMatrix) {
-        console.log("(daltonismUpdateFilterIntensity) intensity: ", intensity);
+        console.daltonismDebug("(daltonismUpdateFilterIntensity) intensity: ", intensity);
         const intenseMatrix = daltonismBaseMatrix.map((row, i) =>
             row.map((val, j) => val * intensity + daltonismIdentityMatrix[i][j] * (1 - intensity))
         );
-        console.log("(daltonismUpdateFilterIntensity) intenseMatrix: ", intenseMatrix);
+        console.daltonismDebug("(daltonismUpdateFilterIntensity) intenseMatrix: ", intenseMatrix);
         daltonismBaseMatrix = intenseMatrix;
         daltonismApplyMatrixToFilter(intenseMatrix);
     }
 }
 
 function daltonismUpdateFilter() {
-    console.log("(daltonismUpdateFilter) daltonismUpdateFilter called");
+    console.daltonismDebug("(daltonismUpdateFilter) daltonismUpdateFilter called");
     daltonismUpdateTransparencySliderDisplayValue();
     daltonismUpdateIntensitySliderDisplayValue();
     const intensity = document.getElementById(daltonismIntensitySlider_name).value / 100;
     const transparency = document.getElementById(daltonismTransparencySlider_name).value / 100;
 
-    console.log('(daltonismUpdateFilter) intensity: ', intensity);
-    console.log('(daltonismUpdateFilter) transparency: ', transparency);
+    console.daltonismDebug('(daltonismUpdateFilter) intensity: ', intensity);
+    console.daltonismDebug('(daltonismUpdateFilter) transparency: ', transparency);
 
     let currentMatrix = daltonismBaseMatrix ? daltonismBaseMatrix : daltonismIdentityMatrix;
 
-    console.log('(daltonismUpdateFilter) currentMatrix: ', currentMatrix);
+    console.daltonismDebug('(daltonismUpdateFilter) currentMatrix: ', currentMatrix);
 
     // Apply intensity adjustment
     const intenseMatrix = currentMatrix.map((row, i) =>
         row.map((val, j) => val * intensity + daltonismIdentityMatrix[i][j] * (1 - intensity))
     );
-    console.log('(daltonismUpdateFilter) intenseMatrix: ', intenseMatrix);
+    console.daltonismDebug('(daltonismUpdateFilter) intenseMatrix: ', intenseMatrix);
 
     // Apply transparency adjustment
     const finalMatrix = intenseMatrix.map(row =>
         row.map(val => val * transparency)
     );
-    console.log('(daltonismUpdateFilter) finalMatrix: ', finalMatrix);
+    console.daltonismDebug('(daltonismUpdateFilter) finalMatrix: ', finalMatrix);
 
     daltonismApplyMatrixToFilter(finalMatrix);
 }
@@ -365,7 +378,7 @@ document.addEventListener('DOMContentLoaded', daltonismBootUP);
 
 async function daltonismInjectSVG() {
     const svg_container = document.createElement('div');
-    console.log("(daltonismInjectSVG) svg_container: ", svg_container);
+    console.daltonismDebug("(daltonismInjectSVG) svg_container: ", svg_container);
     svg_container.innerHTML = daltonismSVGFileContent;
     svg_container.classList.add("daltonism-svg");
     document.body.appendChild(svg_container);
@@ -378,28 +391,28 @@ document.addEventListener('DOMContentLoaded', daltonismInjectSVG);
 function daltonismEnsureCSSComponentExists(componentName, styles, identifier = 'daltonism-styles') {
     // Check if a style element with the identifier exists
     let styleElement = document.querySelector(`style[data-identifier="${identifier}"]`);
-    console.log(`(daltonismEnsureCSSComponentExists) styleElement: `, styleElement);
+    console.daltonismDebug(`(daltonismEnsureCSSComponentExists) styleElement: `, styleElement);
 
     if (!styleElement) {
         // Create a new style element if it doesn't exist
         styleElement = document.createElement('style');
         styleElement.setAttribute('data-identifier', identifier);
         document.head.appendChild(styleElement);
-        console.log(`CSS component with identifier "${identifier}" created.`);
+        console.daltonismDebug(`CSS component with identifier "${identifier}" created.`);
     } else {
-        console.log(`CSS component with identifier "${identifier}" already exists.`);
+        console.daltonismDebug(`CSS component with identifier "${identifier}" already exists.`);
     }
 
     // Check if the class already exists in the style element
     const classExists = styleElement.innerHTML.includes(`${componentName} {`);
-    console.log(`(daltonismEnsureCSSComponentExists) classExists: `, classExists);
+    console.daltonismDebug(`(daltonismEnsureCSSComponentExists) classExists: `, classExists);
 
     if (!classExists) {
         // Append the new class to the existing style element
         styleElement.innerHTML += `\n${componentName} {\n ${styles}\n }`;
-        console.log(`CSS class "${componentName}" added to the existing style component.`);
+        console.daltonismDebug(`CSS class "${componentName}" added to the existing style component.`);
     } else {
-        console.log(`CSS class "${componentName}" already exists in the style component.`);
+        console.daltonismDebug(`CSS class "${componentName}" already exists in the style component.`);
     }
 }
 
