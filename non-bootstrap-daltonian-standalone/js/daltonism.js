@@ -65,7 +65,22 @@ const daltonismMonochromacyButton_name = "monochromacy";
 const daltonismSettingsClassName = "daltonism-settings";
 
 // Debug mode
-const daltonismDebugLog = false;
+let daltonismDebugLog = false;
+
+// Use local storage for remembering the user data
+let daltonismUseLocalStorage = false;
+
+// Local storage variable name for the filter choice
+const daltonismLocalStorageName = "daltonism-filter-choice";
+
+// Local storage variable name for the intensity
+const daltonismIntensityLocalStorageName = "daltonism-intensity";
+
+// Local storage variable name for the transparency
+const daltonismTransparencyLocalStorageName = "daltonism-transparency";
+
+
+const daltonismUseLocalStorageName = "daltonism-use-local-storage";
 
 
 // ----------------------------- Base functions in charge of simplifying certain processes during the declaration of the constants ------------------------------
@@ -83,7 +98,7 @@ function daltonismFlipKeysAndValues(obj) {
     return flippedObject;
 }
 
-function daltonianReturnCorrectColourMatrixFilter(colour) {
+function daltonismReturnCorrectColourMatrixFilter(colour) {
     switch (colour) {
         case 'deuteranopia':
             return [
@@ -151,7 +166,7 @@ const daltonismClassNameEquivalenceFlipped = daltonismFlipKeysAndValues(daltonis
 
 // filters
 const daltonismFilters = Object.keys(daltonismClassNameEquivalence).reduce((acc, key) => {
-    const response = daltonianReturnCorrectColourMatrixFilter(key);
+    const response = daltonismReturnCorrectColourMatrixFilter(key);
     if (!response) {
         return acc;
     }
@@ -306,6 +321,32 @@ const daltonismIdentityMatrix = [
 // current status of the matrix in use
 let daltonismBaseMatrix = null;
 
+// ----------------------------- Functions to manage the local storage for persistency -------------
+
+function daltonismCheckLocalStorage(key) {
+    const useLocalStorage = localStorage.getItem(daltonismUseLocalStorageName);
+    if (useLocalStorage == null) {
+        localStorage.setItem(daltonismUseLocalStorageName, `${daltonismUseLocalStorage}`);
+    } else {
+        daltonismUseLocalStorage = useLocalStorage === 'true';
+    }
+    if (!daltonismUseLocalStorage) {
+        return null;
+    }
+    const choice = localStorage.getItem(key);
+    if (choice) {
+        return choice;
+    }
+    return null;
+}
+
+function daltonismSetLocalStorage(key, choice) {
+    if (!daltonismUseLocalStorage) {
+        return;
+    }
+    localStorage.setItem(key, choice);
+}
+
 // ----------------------------- Functions to make sure the id's are present ------------------------------
 
 async function daltonismEnsureElementExists(elementId, maxRetries = 200, delay = 100) {
@@ -326,12 +367,14 @@ async function daltonismEnsureElementExists(elementId, maxRetries = 200, delay =
 // ----------------------------- Functions for displaying the slider values ------------------------------
 function daltonismUpdateTransparencySliderDisplayValue() {
     const data = document.getElementById(daltonismTransparencySlider_name).value;
+    daltonismSetLocalStorage(daltonismTransparencyLocalStorageName, data);
     console.daltonismDebug("(daltonismUpdateTransparencySliderDisplayValue) value: ", data);
     document.getElementById(daltonismTransparencySliderValue_name).innerText = data;
 }
 
 function daltonismUpdateIntensitySliderDisplayValue() {
     const data = document.getElementById(daltonismIntensitySlider_name).value;
+    daltonismSetLocalStorage(daltonismIntensityLocalStorageName, data);
     console.daltonismDebug("(daltonismUpdateIntensitySliderDisplayValue) value: ", data);
     document.getElementById(daltonismIntensitySliderValue_name).innerText = data;
 }
@@ -339,6 +382,7 @@ function daltonismUpdateIntensitySliderDisplayValue() {
 // ----------------------------- Functions for managing the filters ------------------------------
 function daltonismApplyFilter(filterClass) {
     document.body.className = '';
+    daltonismSetLocalStorage(daltonismLocalStorageName, filterClass);
     console.daltonismDebug("(daltonismApplyFilter) filterClass: ", filterClass);
     const currentFilter = daltonismClassNameEquivalence[`${filterClass}`];
     console.daltonismDebug("(daltonismApplyFilter) currentFilter: ", currentFilter);
@@ -626,7 +670,16 @@ document.addEventListener('DOMContentLoaded', inject_slider_controls);
 
 // ----------------------------- Section in charge of initialising the desired theme on the page ------------------------------
 function daltonismBootUP() {
-    daltonismApplyFilter('normal');
+    const response = daltonismCheckLocalStorage(daltonismLocalStorageName);
+    if (response) {
+        daltonismApplyFilter(response);
+    } else {
+        daltonismApplyFilter("normal");
+    }
+    const intensity = daltonismCheckLocalStorage(daltonismIntensityLocalStorageName);
+    const transparency = daltonismCheckLocalStorage(daltonismTransparencyLocalStorageName);
+    document.getElementById(daltonismIntensitySlider_name).value = intensity ? intensity : 100;
+    document.getElementById(daltonismTransparencySlider_name).value = transparency ? transparency : 100;
     daltonismUpdateTransparencySliderDisplayValue();
     daltonismUpdateIntensitySliderDisplayValue();
 }
@@ -637,42 +690,64 @@ document.addEventListener('DOMContentLoaded', daltonismBootUP);
 
 // The content here, is arranged by type and length, however, it might not appear the same way when you try to access it in the browser console.
 
-const daltonismFilter = [
-    daltonismIdentityMatrix,
-    daltonismFilters,
+const daltonismFilterContent = {
+    /* editable variables */
+    daltonismDebugLog,
     daltonismBaseMatrix,
-    daltonismCSSClasses,
+    daltonismUseLocalStorage,
+    /* constants */
+    settingsWidget,
+    daltonismFilters,
+    settingsWidgetCss,
     daltonismClassNames,
+    daltonismCSSClasses,
+    daltonismIdentityMatrix,
     daltonismSVGFileContent,
     daltonismFilterName_name,
+    daltonismLocalStorageName,
     daltonismNormalButton_name,
-    daltonismIntensitySlider_name,
+    daltonismSettingsClassName,
+    daltonismUseLocalStorageName,
     daltonismClassNameEquivalence,
+    daltonismIntensitySlider_name,
     daltonismProtanopiaButton_name,
     daltonismTritanopiaButton_name,
     daltonismSVGArrayJoinCharacter,
-    daltonismTransparencySlider_name,
     daltonismDeuteranopiaButton_name,
     daltonismMonochromacyButton_name,
+    daltonismTransparencySlider_name,
     daltonismIntensitySliderValue_name,
+    daltonismIntensityLocalStorageName,
     daltonismTransparencySliderValue_name,
+    daltonismTransparencyLocalStorageName,
     daltonismClassNameEquivalenceFlipped,
+    /* functions */
     daltonismBootUP,
+    daltonismLogDebug,
     daltonismInjectSVG,
     daltonismApplyFilter,
     daltonismUpdateFilter,
     daltonismInjectCSSCode,
+    daltonismInjectControls,
+    daltonismSetLocalStorage,
     daltonismFlipKeysAndValues,
+    daltonismCheckLocalStorage,
+    daltonismEnsureElementExists,
     daltonismApplyMatrixToFilter,
     daltonismUpdateFilterIntensity,
+    daltonismInjectCSSSettingsDesign,
     daltonismUpdateFilterTransparency,
     daltonismEnsureCSSComponentExists,
-    daltonianReturnCorrectColourMatrixFilter,
+    daltonismClassExistsAndHasElements,
+    daltonismReturnCorrectColourMatrixFilter,
     daltonismUpdateIntensitySliderDisplayValue,
-    daltonismUpdateTransparencySliderDisplayValue
-]
+    daltonismUpdateTransparencySliderDisplayValue,
+    /* asynchronous functions */
+    inject_button_controls,
+    inject_slider_controls,
+};
 
-window.daltonismFilter = daltonismFilter;
-document.daltonismFilter = daltonismFilter;
+window.daltonismFilter = daltonismFilterContent;
+document.daltonismFilter = daltonismFilterContent;
 
 // ----------------------------- End of the code ------------------------------

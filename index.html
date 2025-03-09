@@ -7,28 +7,135 @@
     <link rel="icon" type="image/png" sizes="1270x1221" href="./img/AB-logo.png" media="(prefers-color-scheme: dark)">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirect Page</title>
+    <style>
+        .codeBlock {
+            display: block;
+            background-color: #f4f4f4;
+            padding: 20px;
+            padding-top: 6px;
+            border-left: 3px solid #f36d33;
+            margin: 0px 0;
+            font-size: 1.2em;
+            overflow: scroll;
+        }
+
+        pre {
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body>
-    <p>If you are not redirected automatically, follow one of these links:</p>
+    <p>Follow one of these links to view the different stages of the project:</p>
     <ul>
         <li><a id="redirect-non-bootstrap" href="./non-bootstrap/">Non-Bootstrap</a></li>
         <li><a id="redirect-non-bootstrap-adjustable" href="./non-bootstrap-adjustable/">Non-Bootstrap Adjustable</a></li>
         <li><a id="redirect-non-bootstrap-adjustable-no-svg-file" href="./non-bootstrap-adjustable-no-svg-file/">Non-Bootstrap Adjustable No svg file</a></li>
         <li><a id="redirect-non-bootstrap-adjustable-no-svg-or-css-file" href="./non-bootstrap-adjustable-no-svg-or-css-file/">Non-Bootstrap Adjustable No svg or CSS file</a></li>
+        <li><a id="redirect-non-bootstrap-daltonian-standalone" href="./non-bootstrap-daltonian-standalone/">Non-Bootstrap standalone javascript file</a></li>
         <li><a id="redirect-html" href="./html/">HTML</a></li>
     </ul>
+    <p>To use the latest version of the project on any webpage, you can use the following code:</p>
+    <ul>
+        <li>
+            Via the javascript console:
+            <br>
+            - Via bookmark:
+            <br>
+            <pre>
+                <code class="codeBlock" id="bookmarklet">
+                    javascript:(function(){
+                        /*This is to enable persistent settings during your navigation throughout the website your are visiting*/
+                        localStorage.setItem(window.daltonismFilterContent.daltonismUseLocalStorageName, "true");
+                        const script = document.createElement('script');
+                        script.src = '/non-bootstrap-daltonian-standalone/js/daltonism.js';
+                        document.head.appendChild(script);
+                    }
+                    )();
+                </code>
+            </pre>
+            <br>
+            - Via function:
+            <br>
+            <pre>
+                <code class="codeBlock" id="functionScriptInjection">
+                    function injectDaltonianScript(scriptUrl) {
+                        /*This is to enable persistent settings during your navigation throughout the website your are visiting*/
+                        localStorage.setItem(window.daltonismFilterContent.daltonismUseLocalStorageName, "true");
+                        const script = document.createElement('script');
+                        script.src = scriptUrl;
+                        script.async = true;
+                        script.onload = function() {
+                            console.log('Color adaptation script loaded successfully');
+                    };
+                    script.onerror = function() {
+                        console.error('Error loading color adaptation script');
+                    };
+                    document.head.appendChild(script);
+                };
+                injectDaltonianScript('/non-bootstrap-daltonian-standalone/js/daltonism.js');
+                </code>
+            </pre>
+        </li>
+        <li>
+            By manually editing the html and pasting this line at the end of the body tag:
+            <br>
+            <pre>
+                <code class="codeBlock" id="htmlScriptInjection">
+                    &lt;script type="text/JavaScript" src="/non-bootstrap-daltonian-standalone/js/daltonism.js"&gt;/*This is to enable persistent settings during your navigation throughout the website your are visiting*/localStorage.setItem(window.daltonismFilterContent.daltonismUseLocalStorageName, "true");&lt;/script&gt;
+                </code>
+            </pre>
+        </li>
+    </ul>
+    <script type="text/javascript">
+        const pageHostname = window.location.origin;
+        const persistencySettingsCode = `\
+    /*This is to enable persistent settings during your navigation throughout the website your are visiting*/
+    localStorage.setItem(window.daltonismFilterContent.daltonismUseLocalStorageName, "true");`;
+        const restOfScriptComment = `\n    /* This is the rest of the code for the injection of the external script */`;
+        const standaloneURL = `${pageHostname}/non-bootstrap-daltonian-standalone/js/daltonism.js`;
+
+        document.getElementById("bookmarklet").innerText = `\
+javascript:(function(){
+${persistencySettingsCode}
+${restOfScriptComment}
+    const script = document.createElement('script');
+    script.type="text/JavaScript";script.src='${standaloneURL}';
+    document.head.appendChild(script);
+})();`;
+
+        document.getElementById("functionScriptInjection").innerText = `\
+function injectDaltonianScript(scriptUrl) {
+${persistencySettingsCode}
+${restOfScriptComment}
+    const script = document.createElement('script');
+    script.type="text/JavaScript";script.src = scriptUrl;
+    script.async = true;
+    script.onload = function() {
+        console.log('Color adaptation script loaded successfully');
+    };
+    script.onerror = function() {
+        console.error('Error loading color adaptation script');
+    };
+    document.head.appendChild(script);
+};
+injectDaltonianScript('${standaloneURL}');`;
+
+        document.getElementById("htmlScriptInjection").innerText = `\<script type=\"text/JavaScript\" src="${standaloneURL}">${persistencySettingsCode.replace("\n", "").replace("    ", "").replace("    ", "")}\<\/script>`;
+    </script>
     <script type="text/javascript">
         const hostname = window.location.origin;
         const urlNonBootstrap = `${hostname}/non-bootstrap`;
         const urlNonBootstrapAdjustable = `${hostname}/non-bootstrap-adjustable`;
         const urlNonBootstrapAdjustableNoSVGFile = `${hostname}/non-bootstrap-adjustable-no-svg-file`;
         const urlNonBootstrapAdjustableNoSVGOrCSSFile = `${hostname}/non-bootstrap-adjustable-no-svg-or-css-file`;
+        const urlNonBootstrapAdjustableStandaloneFile = `${hostname}/non-bootstrap-daltonian-standalone`;
         const urlHtml = `${hostname}/html`;
         document.getElementById("redirect-non-bootstrap").href = urlNonBootstrap;
         document.getElementById("redirect-non-bootstrap-adjustable").href = urlNonBootstrapAdjustable;
         document.getElementById("redirect-non-bootstrap-adjustable-no-svg-file").href = urlNonBootstrapAdjustableNoSVGFile;
         document.getElementById("redirect-non-bootstrap-adjustable-no-svg-or-css-file").href = urlNonBootstrapAdjustableNoSVGOrCSSFile;
+        document.getElementById("redirect-non-bootstrap-daltonian-standalone").href = urlNonBootstrapAdjustableStandaloneFile;
         document.getElementById("redirect-html").href = urlHtml;
     </script>
 </body>
