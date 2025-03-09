@@ -33,17 +33,31 @@
 // ----------------------------- Constants references ------------------------------
 
 // id tags to update
+// |- The id containing the name of the filter
 const daltonismFilterName_name = "c-filter";
+
+// |- The id of the slider for the intensity html value
 const daltonismIntensitySlider_name = "intensity-slider";
+
+// |- The id of the section where the value of the slider is updated
 const daltonismIntensitySliderValue_name = "intensity-value";
+
+// |- The id of the slider for the transparency html value
 const daltonismTransparencySlider_name = "transparency-slider";
+
+// |- The id of the section where the value of the slider is updated
 const daltonismTransparencySliderValue_name = "transparency-value";
 
 // filter state buttons
+// |- The id of the button to set the filter to normal
 const daltonismNormalButton_name = "normal";
-const daltonismDeuteranopiaButton_name = "deuteranopia";
+// |- The id of the button to set the filter to protanopia
 const daltonismProtanopiaButton_name = "protanopia";
+// |- The id of the button to set the filter to tritanopia
 const daltonismTritanopiaButton_name = "tritanopia";
+// |- The id of the button to set the filter to deuteranopia
+const daltonismDeuteranopiaButton_name = "deuteranopia";
+// |- The id of the button to set the filter to monochromacy
 const daltonismMonochromacyButton_name = "monochromacy";
 
 // Debug mode
