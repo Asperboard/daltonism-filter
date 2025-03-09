@@ -16,7 +16,7 @@ services:
       - "8080:80"
     volumes:
       - ./non-bootstrap/:/usr/local/apache2/htdocs/
-    container_name: daltonian_ns_website
+    container_name: non_bootstrap_daltonian
   non-bootstrap-daltonian-adjustable:
     build:
       context: ./non-bootstrap-adjustable/
@@ -25,7 +25,7 @@ services:
       - "8081:80"
     volumes:
       - ./non-bootstrap-adjustable/:/usr/local/apache2/htdocs/
-    container_name: daltonian_ns_website_adjustable
+    container_name: non_bootstrap_daltonian_adjustable
   non-bootstrap-daltonian-adjustable-no-svg-file:
     build:
       context: ./non-bootstrap-adjustable-no-svg-file/
@@ -34,7 +34,7 @@ services:
       - "8082:80"
     volumes:
       - ./non-bootstrap-adjustable-no-svg-file/:/usr/local/apache2/htdocs/
-    container_name: daltonian_ns_website_adjustable_no_svg_file
+    container_name: non_bootstrap_daltonian_adjustable_no_svg_file
   non-bootstrap-daltonian-adjustable-no-svg-or-css-file:
     build:
       context: ./non-bootstrap-adjustable-no-svg-or-css-file/
@@ -43,4 +43,13 @@ services:
       - "8083:80"
     volumes:
       - ./non-bootstrap-adjustable-no-svg-or-css-file/:/usr/local/apache2/htdocs/
-    container_name: daltonian_ns_website_adjustable_no_svg_or_css_file
+    container_name: non_bootstrap_daltonian_adjustable_no_svg_or_css_file
+  non-bootstrap-daltonian-standalone:
+    build:
+      context: ./non-bootstrap-daltonian-standalone/
+      dockerfile: ../Dockerfile
+    ports:
+      - "8084:80"
+    volumes:
+      - ./non-bootstrap-daltonian-standalone/:/usr/local/apache2/htdocs/
+    container_name: non_bootstrap_daltonian_standalone

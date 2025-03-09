@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', daltonismBootUP);
 
 // ----------------------------- Inject the svg file into the html page ------------------------------
 
-async function daltonismInjectSVG() {
+function daltonismInjectSVG() {
     const svg_container = document.createElement('div');
     console.daltonismDebug("(daltonismInjectSVG) svg_container: ", svg_container);
     svg_container.innerHTML = daltonismSVGFileContent;
