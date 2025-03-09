@@ -231,11 +231,13 @@ let daltonismBaseMatrix = null;
 // ----------------------------- Functions for displaying the slider values ------------------------------
 function daltonismUpdateTransparencySliderDisplayValue() {
     const data = document.getElementById(daltonismTransparencySlider_name).value;
+    console.log("(daltonismUpdateTransparencySliderDisplayValue) value: ", data);
     document.getElementById(daltonismTransparencySliderValue_name).innerText = data;
 }
 
 function daltonismUpdateIntensitySliderDisplayValue() {
     const data = document.getElementById(daltonismIntensitySlider_name).value;
+    console.log("(daltonismUpdateIntensitySliderDisplayValue) value: ", data);
     document.getElementById(daltonismIntensitySliderValue_name).innerText = data;
 }
 
@@ -246,40 +248,50 @@ function daltonismApplyFilter(filterClass) {
     const currentFilter = daltonismClassNameEquivalence[`${filterClass}`];
     console.log("(daltonismApplyFilter) currentFilter: ", currentFilter);
     document.getElementById(daltonismFilterName_name).innerText = filterClass;
-    document.body.classList.add(currentFilter);
-    daltonismBaseMatrix = daltonismFilters[currentFilter];
+    document.body.classList.add(`${currentFilter}`);
+    const chosenMatrix = daltonismFilters[`${currentFilter}`];
+    console.log("(daltonismApplyFilter) chosenMatrix: ", chosenMatrix);
+    daltonismBaseMatrix = chosenMatrix;
     daltonismUpdateFilter();
 }
 
 function daltonismApplyMatrixToFilter(matrix) {
     const currentFilter = document.getElementById(daltonismFilterName_name).innerText;
     console.log("(daltonismApplyMatrixToFilter) currentFilter: ", currentFilter);
-    const currentFilterEquivalent = daltonismClassNameEquivalenceFlipped[`${currentFilter}`];
+    const currentFilterEquivalent = daltonismClassNameEquivalence[`${currentFilter}`];
     console.log("(daltonismApplyMatrixToFilter) currentFilterEquivalent: ", currentFilterEquivalent);
-    const filterElement = document.querySelector(`#${daltonismClassNameEquivalence[currentFilterEquivalent]} feColorMatrix`);
+    const filterElement = document.querySelector(`#${currentFilterEquivalent}-filter feColorMatrix`);
     if (filterElement) {
+        console.log("(daltonismApplyMatrixToFilter) filterElement: ", filterElement);
+        console.log("(daltonismApplyMatrixToFilter) matrix: ", matrix);
         filterElement.setAttribute('values', matrix.flat().join(' '));
     }
 }
 
 function daltonismUpdateFilterTransparency() {
     daltonismUpdateTransparencySliderDisplayValue();
+    console.log("(daltonismUpdateFilterTransparency) daltonismUpdateFilterTransparency called");
     const transparency = document.getElementById(daltonismTransparencySlider_name).value / 100;
     if (daltonismBaseMatrix) {
+        console.log("(daltonismUpdateFilterTransparency) intensity: ", intensity);
         const transparentMatrix = daltonismBaseMatrix.map(row =>
             row.map(val => val * transparency)
         );
+        console.log("(daltonismUpdateFilterTransparency) transparentMatrix: ", transparentMatrix);
         daltonismApplyMatrixToFilter(transparentMatrix);
     }
 }
 
 function daltonismUpdateFilterIntensity() {
     daltonismUpdateIntensitySliderDisplayValue();
+    console.log("(daltonismUpdateFilterIntensity) daltonismUpdateFilterIntensity called");
     const intensity = document.getElementById(daltonismIntensitySlider_name).value / 100;
     if (daltonismBaseMatrix) {
+        console.log("(daltonismUpdateFilterIntensity) intensity: ", intensity);
         const intenseMatrix = daltonismBaseMatrix.map((row, i) =>
             row.map((val, j) => val * intensity + daltonismIdentityMatrix[i][j] * (1 - intensity))
         );
+        console.log("(daltonismUpdateFilterIntensity) intenseMatrix: ", intenseMatrix);
         daltonismBaseMatrix = intenseMatrix;
         daltonismApplyMatrixToFilter(intenseMatrix);
     }
@@ -297,15 +309,19 @@ function daltonismUpdateFilter() {
 
     let currentMatrix = daltonismBaseMatrix ? daltonismBaseMatrix : daltonismIdentityMatrix;
 
+    console.log('(daltonismUpdateFilter) currentMatrix: ', currentMatrix);
+
     // Apply intensity adjustment
     const intenseMatrix = currentMatrix.map((row, i) =>
         row.map((val, j) => val * intensity + daltonismIdentityMatrix[i][j] * (1 - intensity))
     );
+    console.log('(daltonismUpdateFilter) intenseMatrix: ', intenseMatrix);
 
     // Apply transparency adjustment
     const finalMatrix = intenseMatrix.map(row =>
         row.map(val => val * transparency)
     );
+    console.log('(daltonismUpdateFilter) finalMatrix: ', finalMatrix);
 
     daltonismApplyMatrixToFilter(finalMatrix);
 }
@@ -349,6 +365,7 @@ document.addEventListener('DOMContentLoaded', daltonismBootUP);
 
 async function daltonismInjectSVG() {
     const svg_container = document.createElement('div');
+    console.log("(daltonismInjectSVG) svg_container: ", svg_container);
     svg_container.innerHTML = daltonismSVGFileContent;
     svg_container.classList.add("daltonism-svg");
     document.body.appendChild(svg_container);
@@ -361,6 +378,7 @@ document.addEventListener('DOMContentLoaded', daltonismInjectSVG);
 function daltonismEnsureCSSComponentExists(componentName, styles, identifier = 'daltonism-styles') {
     // Check if a style element with the identifier exists
     let styleElement = document.querySelector(`style[data-identifier="${identifier}"]`);
+    console.log(`(daltonismEnsureCSSComponentExists) styleElement: `, styleElement);
 
     if (!styleElement) {
         // Create a new style element if it doesn't exist
@@ -374,6 +392,7 @@ function daltonismEnsureCSSComponentExists(componentName, styles, identifier = '
 
     // Check if the class already exists in the style element
     const classExists = styleElement.innerHTML.includes(`${componentName} {`);
+    console.log(`(daltonismEnsureCSSComponentExists) classExists: `, classExists);
 
     if (!classExists) {
         // Append the new class to the existing style element
