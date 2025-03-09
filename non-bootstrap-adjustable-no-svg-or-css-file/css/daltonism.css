@@ -1,0 +1,67 @@
+/*
+** EPITECH PROJECT, 2024
+** daltonism-filter
+** File description:
+** styles.css
+*/
+
+/* Daltonism svg position */
+.daltonism-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+:root {
+    --daltonism-view-mode-deuteranopia: url(#deuteranopia-filter);
+    --daltonism-view-mode-protanopia: url(#protanopia-filter);
+    --daltonism-view-mode-tritanopia: url(#tritanopia-filter);
+    --daltonism-view-mode-monochromacy: url(#monochromacy-filter);
+    --daltonism-view-mode-normal: url(#normal-filter);
+}
+
+/* Normal */
+.normal {
+    -webkit-filter: var(--daltonism-view-mode-normal);
+    -moz-filter: var(--daltonism-view-mode-normal);
+    -ms-filter: var(--daltonism-view-mode-normal);
+    -o-filter: var(--daltonism-view-mode-normal);
+    filter: var(--daltonism-view-mode-normal);
+}
+
+/* Deuteranopia */
+.deuteranopia {
+    -webkit-filter: var(--daltonism-view-mode-deuteranopia);
+    -moz-filter: var(--daltonism-view-mode-deuteranopia);
+    -ms-filter: var(--daltonism-view-mode-deuteranopia);
+    -o-filter: var(--daltonism-view-mode-deuteranopia);
+    filter: var(--daltonism-view-mode-deuteranopia);
+}
+
+/* Protanopia */
+.protanopia {
+    -webkit-filter: var(--daltonism-view-mode-protanopia);
+    -moz-filter: var(--daltonism-view-mode-protanopia);
+    -ms-filter: var(--daltonism-view-mode-protanopia);
+    -o-filter: var(--daltonism-view-mode-protanopia);
+    filter: var(--daltonism-view-mode-protanopia);
+}
+
+/* Tritanopia */
+.tritanopia {
+    -webkit-filter: var(--daltonism-view-mode-tritanopia);
+    -moz-filter: var(--daltonism-view-mode-tritanopia);
+    -ms-filter: var(--daltonism-view-mode-tritanopia);
+    -o-filter: var(--daltonism-view-mode-tritanopia);
+    filter: var(--daltonism-view-mode-tritanopia);
+}
+
+/* Monochromacy filter */
+.monochromacy {
+    -webkit-filter: var(--daltonism-view-mode-monochromacy);
+    -moz-filter: var(--daltonism-view-mode-monochromacy);
+    -ms-filter: var(--daltonism-view-mode-monochromacy);
+    -o-filter: var(--daltonism-view-mode-monochromacy);
+    filter: var(--daltonism-view-mode-monochromacy);
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/daltonism.css">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/favicon/AB-logo.png">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/favicon/AB-logo.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/favicon/AB-logo.png">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/favicon/AB-logo.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/favicon/AB-logo.png">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/favicon/AB-logo.png">
+    <link rel="icon" type="image/png" sizes="1270x1221" href="./img/favicon/AB-logo.png">
+    <title>Color Blindness Filters</title>
+</head>
+
+<body>
+    <h1>Color Blindness Filters</h1>
+    <p>Current filter in use: <span id="c-filter">None</span></p>
+    <button id="normal">Normal</button>
+    <button id="deuteranopia">Deuteranopia</button>
+    <button id="protanopia">Protanopia</button>
+    <button id="tritanopia">Tritanopia</button>
+    <button id="monochromacy">Monochromacy</button>
+    <br>
+    <div>
+        <label for="intensity">Filter Intensity: </label>
+        <input type="range" id="intensity-slider" name="intensity" min="0" max="100" value="100">
+        <span id="intensity-value">...</span>
+    </div>
+    <br>
+    <div>
+        <label for="transparency">Filter Transparency: </label>
+        <input type="range" id="transparency-slider" name="transparency" min="20" max="100" value="100">
+        <span id="transparency-value">...</span>
+    </div>
+    <br>
+    <div>
+        <p>Sample text</p>
+        <iframe src="https://www.youtube.com/embed/9bZkp7q19f0" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+        <h1>Color Blindness Filter Examples</h1>
+
+        <section>
+            <h2>Color Swatches</h2>
+            <div class="color-swatch" style="background-color: red;">Red</div>
+            <div class="color-swatch" style="background-color: green;">Green</div>
+            <div class="color-swatch" style="background-color: blue;">Blue</div>
+            <div class="color-swatch" style="background-color: yellow; color: black;">Yellow</div>
+            <div class="color-swatch" style="background-color: cyan;">Cyan</div>
+            <div class="color-swatch" style="background-color: magenta;">Magenta</div>
+            <div class="color-swatch" style="background-color: black; color: white;">Black</div>
+            <div class="color-swatch" style="background-color: white; color: black;">White</div>
+            <div class="color-swatch" style="background-color: gray;">Gray</div>
+        </section>
+
+        <section>
+            <h2>Images</h2>
+            <img src="img/nature-scene.jpg" alt="Nature Scene" width="300">
+            <p>Credits: <a href="https://unsplash.com/fr/@secrettravelguide?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Secret Travel Guide</a> sur <a href="https://unsplash.com/fr/photos/batiment-en-beton-brun-et-blanc-pres-dun-plan-deau-pendant-la-journee-8Dk-eY8RSFU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+            <img src="img/traffic-lights.jpg" alt="Traffic Lights" width="300">
+            <p>Credits: <a href="https://unsplash.com/fr/@noahdominic?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Noah Dominic</a> sur <a href="https://unsplash.com/fr/photos/feu-de-signalisation-noir-et-gris-allume-pB0y7Nf7xpU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+            <img src="img/colorful-doors.jpg" alt="Colorful doors" width="300">
+            <p>Credits: <a href="https://unsplash.com/fr/@ro_ka?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Robert Katzki</a> sur <a href="https://unsplash.com/fr/photos/mur-multicolore-en-photographie-a-mise-au-point-peu-profonde-jbtfM0XBeRc?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+            <img src="img/colour-wheel.png" alt="Colour wheel picker" width="300">
+            <p>Credits: <a href="https://commons.wikimedia.org/w/index.php?title=User:8-leaf_clover&amp;action=edit&amp;redlink=1" class="new" title="User:8-leaf clover (page does not exist)">8-leaf clover</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en" title="Creative Commons Zero, Public Domain Dedication">CC0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=134343231">Link</a></p>
+        </section>
+
+        <section>
+            <h2>Text</h2>
+            <p style="color: red;">This is red text.</p>
+            <p style="color: green;">This is green text.</p>
+            <p style="color: blue;">This is blue text.</p>
+            <a href="#" style="color: red;">Red Link</a>
+            <a href="#" style="color: green;">Green Link</a>
+            <a href="#" style="color: blue;">Blue Link</a>
+        </section>
+
+        <section>
+            <h2>Icons and Symbols</h2>
+            <img src="img/stop-sign.png" alt="Stop Sign" width="50">
+            <p>Credits: <a href="https://unsplash.com/fr/@kadykov?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Aleksandr Kadykov</a> sur <a href="https://unsplash.com/fr/photos/panneau-darret-rouge-sur-le-terrain-dherbe-verte-pendant-la-journee-nPPyyii1oIg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+            <img src="img/warning-triangle.png" alt="Warning Triangle" width="50">
+            <p>Credits: <a href="https://unsplash.com/fr/@badun?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Anastasiya Badun</a> sur <a href="https://unsplash.com/fr/photos/un-panneau-triangulaire-jaune-avec-un-eclair-dessus-krARgGsRCxM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+            <img src="img/home-icon.png" alt="Home Icon" width="50">
+            <p>Credits: <a target="_blank" href="https://icons8.com/icon/2797/home">Home</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></p>
+        </section>
+
+        <section>
+            <h2>Interactive Elements</h2>
+            <button style="background-color: red; color: white;">Red Button</button>
+            <button style="background-color: green; color: white;">Green Button</button>
+            <button style="background-color: blue; color: white;">Blue Button</button>
+            <form>
+                <input type="text" placeholder="Colored Input" style="border-color: red;">
+            </form>
+        </section>
+    </div>
+    <script type="text/JavaScript" src="js/script.js"></script>
+</body>
+
+</html>

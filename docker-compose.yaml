@@ -26,3 +26,21 @@ services:
     volumes:
       - ./non-bootstrap-adjustable/:/usr/local/apache2/htdocs/
     container_name: daltonian_ns_website_adjustable
+  non-bootstrap-daltonian-adjustable-no-svg-file:
+    build:
+      context: ./non-bootstrap-adjustable-no-svg-file/
+      dockerfile: ../Dockerfile
+    ports:
+      - "8082:80"
+    volumes:
+      - ./non-bootstrap-adjustable-no-svg-file/:/usr/local/apache2/htdocs/
+    container_name: daltonian_ns_website_adjustable_no_svg_file
+  non-bootstrap-daltonian-adjustable-no-svg-or-css-file:
+    build:
+      context: ./non-bootstrap-adjustable-no-svg-or-css-file/
+      dockerfile: ../Dockerfile
+    ports:
+      - "8083:80"
+    volumes:
+      - ./non-bootstrap-adjustable-no-svg-or-css-file/:/usr/local/apache2/htdocs/
+    container_name: daltonian_ns_website_adjustable_no_svg_or_css_file
